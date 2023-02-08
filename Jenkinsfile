@@ -6,17 +6,17 @@ node {
     stage('Environment') {
       sh 'git --version'
       echo "Branch: ${env.BRANCH_NAME}"
-      sh 'sudo docker -v'
+      sh 'docker -v'
       sh 'printenv'
     }
     stage('Build Docker test'){
-     sh 'sudo docker build -t goapp-test -f Dockerfile --no-cache .'
+     sh 'docker build -t goapp-test -f Dockerfile --no-cache .'
     }
     stage('Docker test'){
-      sh 'sudo docker run --rm goapp-test'
+      sh 'docker run --rm goapp-test'
     }
     stage('Clean Docker test'){
-      sh 'sudo docker rmi goapp-test'
+      sh 'docker rmi goapp-test'
     }
     stage('Deploy'){
       if(env.BRANCH_NAME == 'Ali'){
